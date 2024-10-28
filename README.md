@@ -1,2 +1,2 @@
-# Espresso_addict
- school groupe project
+# espresso-addict
+ A small text adventure - written in vanilla JS
