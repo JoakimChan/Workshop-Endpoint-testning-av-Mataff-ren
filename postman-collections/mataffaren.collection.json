@@ -55,12 +55,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5173/api/c/frukt-och-gront?size=30&page=0&sort=name-asc",
-					"protocol": "http",
+					"raw": "{{domain}}/api/c/frukt-och-gront?size=30&page=0&sort=name-asc",
 					"host": [
-						"localhost"
+						"{{domain}}"
 					],
-					"port": "5173",
 					"path": [
 						"api",
 						"c",
@@ -120,12 +118,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5173/api/c/frukt-och-gront?size=30&page=0&sort=name-desc",
-					"protocol": "http",
+					"raw": "{{domain}}/api/c/frukt-och-gront?size=30&page=0&sort=name-desc",
 					"host": [
-						"localhost"
+						"{{domain}}"
 					],
-					"port": "5173",
 					"path": [
 						"api",
 						"c",
@@ -197,12 +193,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5173/api/c/fryst?size=30&page=0&sort=price-desc",
-					"protocol": "http",
+					"raw": "{{domain}}/api/c/fryst?size=30&page=0&sort=price-desc",
 					"host": [
-						"localhost"
+						"{{domain}}"
 					],
-					"port": "5173",
 					"path": [
 						"api",
 						"c",
@@ -235,8 +229,10 @@
 						"exec": [
 							"let list = [\"kott-chark-och-fagel\", \"frukt-och-gront\", \"mejeri-ost-och-agg\", \"skafferi\", \"brod-och-kakor\", \"fisk-och-skaldjur\", \"dryck\", \"fardigmat\", \"djur\", \"blommor-och-tradgard\", \"fryst\"];",
 							"",
+							"let domain = pm.environment.get(\"domain\"); // Get the domain from the environment",
+							"",
 							"for (let i = 0; i < list.length; i++) {",
-							"    pm.request.url = `http://localhost:5173/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
+							"    pm.request.url = `${domain}/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
 							"    ",
 							"    // Send the request",
 							"    pm.sendRequest(pm.request.url, function (err, response) {",
@@ -280,8 +276,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"// Set the domain",
-							"pm.environment.set('domain', 'http://localhost:4000')"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -328,8 +323,10 @@
 						"exec": [
 							"let list = [\"vegetariskt\", \"glass-godis-och-snacks\", \"barn\", \"halsa-och-skonhet\", \"apotek\", \"kiosk\", \"lotter\", \"hem-och-stad\"];",
 							"",
+							"let domain = pm.environment.get(\"domain\"); // Get the domain from the environment",
+							"",
 							"for (let i = 0; i < list.length; i++) {",
-							"    pm.request.url = `http://localhost:5173/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
+							"    pm.request.url = `${domain}/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
 							"    ",
 							"    // Send the request",
 							"    pm.sendRequest(pm.request.url, function (err, response) {",
@@ -454,6 +451,28 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
