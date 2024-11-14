@@ -3,8 +3,8 @@
 		"_postman_id": "b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a",
 		"name": "Tests of Mataffären",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33841337",
-		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/PVT23~791d4d42-fdb4-4b56-ae14-e4588902a79f/collection/33841431-b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a?action=share&source=collection_link&creator=33841337"
+		"_exporter_id": "33841431",
+		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/PVT23~791d4d42-fdb4-4b56-ae14-e4588902a79f/collection/33841431-b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a?action=share&source=collection_link&creator=33841431"
 	},
 	"item": [
 		{
@@ -150,71 +150,6 @@
 			"response": []
 		},
 		{
-			"name": "Sort fryst pris asc",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// Parse the response to get the product list\r",
-							"let products = pm.response.json().results;\r",
-							"\r",
-							"// Check if there are products in the response\r",
-							"pm.test(\"Response contains products\", function() {\r",
-							"    pm.expect(products.length).to.be.above(0);\r",
-							"});\r",
-							"\r",
-							"// Extract product prices\r",
-							"let prices = products.map(product => product.priceValue);\r",
-							"console.log(\"Product Prices:\", prices);\r",
-							"\r",
-							"// Test to check if prices are sorted in ascending order (cheapest to most expensive)\r",
-							"pm.test(\"Products are sorted by price in ascending order\", function() {\r",
-							"    for (let i = 0; i < prices.length - 1; i++) {\r",
-							"        // Ensure each price is less than or equal to the next price\r",
-							"        pm.expect(prices[i]).to.be.at.most(prices[i + 1]);\r",
-							"    }\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5173/api/c/fryst?size=30&page=0&sort=price-asc",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5173",
-					"path": [
-						"api",
-						"c",
-						"fryst"
-					],
-					"query": [
-						{
-							"key": "size",
-							"value": "30"
-						},
-						{
-							"key": "page",
-							"value": "0"
-						},
-						{
-							"key": "sort",
-							"value": "price-asc"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Sort fryst pris desc",
 			"event": [
 				{
@@ -298,7 +233,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"let list = [\"kott-chark-och-fagel\", \"frukt-och-gront\", \"mejeri-ost-och-agg\", \"skafferi\", \"brod-och-kakor\", \"fisk-och-skaldjur\", \"dryck\", \"fardigmat\", \"hem-och-stad\", \"djur\"];",
+							"let list = [\"kott-chark-och-fagel\", \"frukt-och-gront\", \"mejeri-ost-och-agg\", \"skafferi\", \"brod-och-kakor\", \"fisk-och-skaldjur\", \"dryck\", \"fardigmat\", \"djur\", \"blommor-och-tradgard\", \"fryst\"];",
 							"",
 							"for (let i = 0; i < list.length; i++) {",
 							"    pm.request.url = `http://localhost:5173/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
@@ -391,7 +326,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"let list = [\"fryst\", \"vegetariskt\", \"glass-godis-och-snacks\", \"barn\", \"blommor-och-tradgard\", \"halsa-och-skonhet\", \"apotek\", \"kiosk\", \"lotter\", \"djur\"];",
+							"let list = [\"vegetariskt\", \"glass-godis-och-snacks\", \"barn\", \"halsa-och-skonhet\", \"apotek\", \"kiosk\", \"lotter\", \"hem-och-stad\"];",
 							"",
 							"for (let i = 0; i < list.length; i++) {",
 							"    pm.request.url = `http://localhost:5173/api/c/${list[i]}?size=30&page=0&sort=price-asc`;",
@@ -447,180 +382,6 @@
 						"api",
 						"c",
 						"frukt-och-gront"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Alla Sorterings typer",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// Set the domain\r",
-							"pm.environment.set('domain', 'http://localhost:4000');\r",
-							"\r",
-							"// Set categories and sorting options in your environment\r",
-							"pm.environment.set(\"categories\", JSON.stringify([\r",
-							"    \"kott-chark-och-fagel\",\r",
-							"    \"frukt-och-gront\",\r",
-							"    \"mejeri-ost-agg\",\r",
-							"    \"skafferi\",\r",
-							"    \"brod-och-kakor\",\r",
-							"    \"fryst\",\r",
-							"    \"fisk-och-skaldjur\",\r",
-							"    \"vegetariskt\",\r",
-							"    \"glass-godis-snacks\",\r",
-							"    \"dryck\",\r",
-							"    \"fardigmat\",\r",
-							"    \"barn\",\r",
-							"    \"blommor-tradgard\",\r",
-							"    \"hem-stad\",\r",
-							"    \"halsa-skonhet\",\r",
-							"    \"apotek\",\r",
-							"    \"djur\",\r",
-							"    \"kiosk\",\r",
-							"    \"lotter\"\r",
-							"]));\r",
-							"\r",
-							"pm.environment.set(\"sortingOptions\", JSON.stringify([\r",
-							"    { sort: \"topRated\", name: \"Populärast\" },\r",
-							"    { sort: \"name-asc\", name: \"A–Ö\" },\r",
-							"    { sort: \"name-desc\", name: \"Ö–A\" },\r",
-							"    { sort: \"price-asc\", name: \"Pris (Billigast - Dyrast)\" },\r",
-							"    { sort: \"price-desc\", name: \"Pris (Dyrast - Billigast)\" },\r",
-							"    { sort: \"compareprice-asc\", name: \"Jämförpris (Billigast - Dyrast)\" },\r",
-							"    { sort: \"compareprice-desc\", name: \"Jämförpris (Dyrast - Billigast)\" }\r",
-							"]));\r",
-							"\r",
-							"// Initialize category and sorting indices if they are not already set\r",
-							"if (!pm.environment.get(\"categoryIndex\")) pm.environment.set(\"categoryIndex\", 0);\r",
-							"if (!pm.environment.get(\"sortingIndex\")) pm.environment.set(\"sortingIndex\", 0);"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// Parse categories and sorting options from environment variables\r",
-							"const categories = JSON.parse(pm.environment.get(\"categories\"));\r",
-							"const sortingOptions = JSON.parse(pm.environment.get(\"sortingOptions\"));\r",
-							"\r",
-							"// Get current category and sorting option from environment\r",
-							"let categoryIndex = parseInt(pm.environment.get(\"categoryIndex\"));\r",
-							"let sortingIndex = parseInt(pm.environment.get(\"sortingIndex\"));\r",
-							"\r",
-							"// Set current category and sorting option for this request\r",
-							"const currentCategory = categories[categoryIndex];\r",
-							"const currentSorting = sortingOptions[sortingIndex];\r",
-							"\r",
-							"// Update request URL to include the current category and sorting option\r",
-							"pm.request.url = `${pm.environment.get('domain')}/api/${currentCategory}?size=30&page=0&sort=${currentSorting.sort}`;\r",
-							"\r",
-							"// Test to validate sorting in the response\r",
-							"pm.test(`Category: ${currentCategory} - Sorting: ${currentSorting.name}`, function() {\r",
-							"    const response = pm.response.json();\r",
-							"\r",
-							"    // Check if the response contains an expected property (e.g., `children` instead of `results`)\r",
-							"    if (response.hasOwnProperty(\"results\")) {\r",
-							"        console.log(`Testing sorting by ${currentSorting.name} in 'results'`);\r",
-							"\r",
-							"        // Proceed with original sorting test logic if `results` exists\r",
-							"        const products = response.results;\r",
-							"\r",
-							"        if (currentSorting.sort.includes(\"name\")) {\r",
-							"            const names = products.map(product => product.name);\r",
-							"            for (let i = 0; i < names.length - 1; i++) {\r",
-							"                if (currentSorting.sort === \"name-asc\") {\r",
-							"                    pm.expect(names[i].localeCompare(names[i + 1], 'sv', { sensitivity: 'base' })).to.be.at.most(0);\r",
-							"                } else if (currentSorting.sort === \"name-desc\") {\r",
-							"                    pm.expect(names[i].localeCompare(names[i + 1], 'sv', { sensitivity: 'base' })).to.be.at.least(0);\r",
-							"                }\r",
-							"            }\r",
-							"            console.log(`Sorting by ${currentSorting.name} passed in 'results'`);\r",
-							"        } else if (currentSorting.sort.includes(\"price\")) {\r",
-							"            const prices = products.map(product => product.priceValue);\r",
-							"            for (let i = 0; i < prices.length - 1; i++) {\r",
-							"                if (currentSorting.sort === \"price-asc\") {\r",
-							"                    pm.expect(prices[i]).to.be.at.most(prices[i + 1]);\r",
-							"                } else if (currentSorting.sort === \"price-desc\") {\r",
-							"                    pm.expect(prices[i]).to.be.at.least(prices[i + 1]);\r",
-							"                }\r",
-							"            }\r",
-							"            console.log(`Sorting by ${currentSorting.name} passed in 'results'`);\r",
-							"        } else if (currentSorting.sort.includes(\"compareprice\")) {\r",
-							"            const comparePrices = products.map(product => product.comparePriceValue);\r",
-							"            for (let i = 0; i < comparePrices.length - 1; i++) {\r",
-							"                if (currentSorting.sort === \"compareprice-asc\") {\r",
-							"                    pm.expect(comparePrices[i]).to.be.at.most(comparePrices[i + 1]);\r",
-							"                } else if (currentSorting.sort === \"compareprice-desc\") {\r",
-							"                    pm.expect(comparePrices[i]).to.be.at.least(comparePrices[i + 1]);\r",
-							"                }\r",
-							"            }\r",
-							"            console.log(`Sorting by ${currentSorting.name} passed in 'results'`);\r",
-							"        }\r",
-							"    } else if (response.hasOwnProperty(\"children\")) {\r",
-							"        console.log(`Testing sorting by ${currentSorting.name} in 'children'`);\r",
-							"\r",
-							"        // Use `children` array if `results` is missing\r",
-							"        console.warn(\"Response saknar 'results' egenskap. Använder 'children' istället.\");\r",
-							"\r",
-							"        const childrenCategories = response.children;\r",
-							"        \r",
-							"        // Example check if names are sorted alphabetically in `children`\r",
-							"        const names = childrenCategories.map(child => child.title);\r",
-							"        for (let i = 0; i < names.length - 1; i++) {\r",
-							"            if (currentSorting.sort === \"name-asc\") {\r",
-							"                pm.expect(names[i].localeCompare(names[i + 1], 'sv', { sensitivity: 'base' })).to.be.at.most(0);\r",
-							"            } else if (currentSorting.sort === \"name-desc\") {\r",
-							"                pm.expect(names[i].localeCompare(names[i + 1], 'sv', { sensitivity: 'base' })).to.be.at.least(0);\r",
-							"            }\r",
-							"        }\r",
-							"        console.log(`Sorting by ${currentSorting.name} passed in 'children'`);\r",
-							"    } else {\r",
-							"        // Log warning if neither `results` nor `children` is present\r",
-							"        console.warn(\"Response saknar både 'results' och 'children' egenskaper.\");\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"// Update indices for the next iteration\r",
-							"if (sortingIndex < sortingOptions.length - 1) {\r",
-							"    // Move to the next sorting option for the current category\r",
-							"    pm.environment.set(\"sortingIndex\", sortingIndex + 1);\r",
-							"} else if (categoryIndex < categories.length - 1) {\r",
-							"    // Move to the next category and reset sorting index\r",
-							"    pm.environment.set(\"categoryIndex\", categoryIndex + 1);\r",
-							"    pm.environment.set(\"sortingIndex\", 0);\r",
-							"} else {\r",
-							"    // All categories and sorting options are tested, so clear indices\r",
-							"    pm.environment.unset(\"categoryIndex\");\r",
-							"    pm.environment.unset(\"sortingIndex\");\r",
-							"    console.log(\"All sorting tests completed.\");\r",
-							"}\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/api/leftMenu/categorytree",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"leftMenu",
-						"categorytree"
 					]
 				}
 			},
