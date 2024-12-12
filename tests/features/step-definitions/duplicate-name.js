@@ -2,8 +2,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from 'chai';
 
 Then('it should contain duplicate', async function () {
-  const response = await this.response;
-  products = response.data.results;
+  const products = await this.json.results;
 
   expect(products.length).to.be.greaterThan(0);
 
