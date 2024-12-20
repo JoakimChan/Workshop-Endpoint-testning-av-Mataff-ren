@@ -3,8 +3,8 @@
 		"_postman_id": "b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a",
 		"name": "Tests of Mataffären",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33841431",
-		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/PVT23~791d4d42-fdb4-4b56-ae14-e4588902a79f/collection/33841431-b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a?action=share&source=collection_link&creator=33841431"
+		"_exporter_id": "33841337",
+		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/PVT23~791d4d42-fdb4-4b56-ae14-e4588902a79f/collection/33841431-b24fd1e6-4ccf-4bb1-a8c6-93f253ecd68a?action=share&source=collection_link&creator=33841337"
 	},
 	"item": [
 		{
@@ -14,8 +14,16 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Parse the response to get the product list\r",
 							"let products = pm.response.json().results;\r",
+							"\r",
+							"// Parse the response to get the product list\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
 							"\r",
 							"// Check if there are products in the response\r",
 							"pm.test(\"Response contains products\", function() {\r",
@@ -92,6 +100,15 @@
 							"// Parse the response to get the product list\r",
 							"let products = pm.response.json().results;\r",
 							"\r",
+							"// Parse the response to get the product list\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
 							"// Check if there are products in the response\r",
 							"pm.test(\"Response contains products\", function() {\r",
 							"    pm.expect(products.length).to.be.above(0);\r",
@@ -108,6 +125,17 @@
 							"        pm.expect(names[i].localeCompare(names[i + 1], 'sv', { sensitivity: 'base' })).to.be.at.least(0);\r",
 							"    }\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -155,6 +183,15 @@
 							"// Parse the response to get the product list\r",
 							"let products = pm.response.json().results;\r",
 							"\r",
+							"// Parse the response to get the product list\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
 							"// Check if there are products in the response\r",
 							"pm.test(\"Response contains products\", function() {\r",
 							"    pm.expect(products.length).to.be.above(0);\r",
@@ -171,6 +208,17 @@
 							"        pm.expect(prices[i]).to.be.at.least(prices[i + 1]);\r",
 							"    }\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -259,10 +307,15 @@
 							"            ",
 							"            // Fail test if sorting does work",
 							"            pm.expect(isSorted).to.be.false;",
+							"        });",
 							"",
-							"            pm.test(\"Response time is less than 1 second\", function () {",
+							"        // Parse the response to get the product list",
+							"        pm.test(\"Status code is 200\", function () {",
+							"            pm.response.to.have.status(200);",
+							"        });",
+							"",
+							"        pm.test(\"Response time is less than 1 second\", function () {",
 							"            pm.expect(pm.response.responseTime).to.be.below(1000);",
-							"            });",
 							"        });",
 							"    });",
 							"}",
@@ -276,7 +329,8 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -365,6 +419,17 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -391,9 +456,14 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"// Parse the response to get the product list",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    });",
+							"",
 							"pm.test(\"Response time is less than 1 second\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
-							"});",
+							"    });",
 							"",
 							" pm.test(`Testing for name duplicate`, function () {",
 							"            // Extract products from the response",
@@ -414,6 +484,17 @@
 							"",
 							"            pm.expect(duplicate).to.be.true;",
 							" });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -447,6 +528,253 @@
 							"key": "sort",
 							"value": "name-asc"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Banan finns i subkategori Bananer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000');"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response to get the product list\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Banan Klass 1 finns i subkategori 'Bananer'\", () => {\r",
+							"    const responseData = pm.response.json();\r",
+							"    const productExists = responseData.results.some(product => product.name === \"Banan Klass 1\");\r",
+							"    pm.expect(productExists).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/c/frukt-och-gront/frukt/bananer",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"c",
+						"frukt-och-gront",
+						"frukt",
+						"bananer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Banan inte finns i fel kategorie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response to get the product list\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"function checkSubcategories(categories, baseUrl, excludeUrl, completedRequests, totalRequests) {\r",
+							"    categories.forEach(category => {\r",
+							"        if (category.url === excludeUrl) return;\r",
+							"\r",
+							"        const requestUrl = `${baseUrl}${category.url}`;\r",
+							"        pm.sendRequest(requestUrl, (err, res) => {\r",
+							"            if (!err) {\r",
+							"                try {\r",
+							"                    const products = res.json().results || [];\r",
+							"                    const productExists = products.some(product => product.title === \"Banan Klass 1\");\r",
+							"                    \r",
+							"                    pm.test(`Produkten finns inte i kategori ${category.url}`, () => {\r",
+							"                        pm.expect(productExists).to.be.false;\r",
+							"                    });\r",
+							"                } catch (e) {\r",
+							"                }\r",
+							"            }\r",
+							"\r",
+							"            completedRequests.count++;\r",
+							"\r",
+							"            if (completedRequests.count === totalRequests.count) {\r",
+							"                pm.test(\"Alla kategorier och subkategorier kontrollerades utan fel\", () => {\r",
+							"                    pm.expect(completedRequests.count).to.equal(totalRequests.count);\r",
+							"                });\r",
+							"            }\r",
+							"        });\r",
+							"\r",
+							"        if (category.children && category.children.length > 0) {\r",
+							"            checkSubcategories(category.children, baseUrl, excludeUrl, completedRequests, totalRequests);\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
+							"pm.sendRequest(\"http://localhost:4000/api/leftMenu/categorytree\", (err, res) => {\r",
+							"    if (err) return;\r",
+							"\r",
+							"    pm.test(\"Banan Klass 1 finns inte i andra kategorier och subkategorier\", () => {\r",
+							"        const categoryTree = res.json();\r",
+							"        const baseUrl = \"http://localhost:4000/api\";\r",
+							"        const excludeUrl = \"/frukt-och-gront/frukt/bananer\";\r",
+							"        const totalRequests = { count: 0 };\r",
+							"        const completedRequests = { count: 0 };\r",
+							"\r",
+							"        function countCategories(categories) {\r",
+							"            categories.forEach(category => {\r",
+							"                if (category.url !== excludeUrl) {\r",
+							"                    totalRequests.count++;\r",
+							"                    if (category.children && category.children.length > 0) {\r",
+							"                        countCategories(category.children);\r",
+							"                    }\r",
+							"                }\r",
+							"            });\r",
+							"        }\r",
+							"\r",
+							"        countCategories(categoryTree.children);\r",
+							"        checkSubcategories(categoryTree.children, baseUrl, excludeUrl, completedRequests, totalRequests);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Siffror/Pris/Namn/ för dryck kategorin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set the domain\r",
+							"pm.environment.set('domain', 'http://localhost:4000')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuskod är 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"let data1;\r",
+							"try {\r",
+							"    data1 = pm.response.json();\r",
+							"} catch (e) {\r",
+							"    pm.test(\"Svaret är giltig JSON\", () => {\r",
+							"        pm.expect.fail(\"Svaret är inte giltig JSON.\");\r",
+							"    });\r",
+							"    return;\r",
+							"}\r",
+							"\r",
+							"pm.test(\"'results' finns och är en array\", () => {\r",
+							"    pm.expect(data1.results).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"data1.results.forEach(product => {\r",
+							"    const productName = product.name || \"okänd\";\r",
+							"\r",
+							"    pm.test(`Produkten \"${productName}\" har ett numeriskt prisvärde`, () => {\r",
+							"        pm.expect(product.priceValue).to.be.a(\"number\");\r",
+							"    });\r",
+							"\r",
+							"    pm.test(`Produkten \"${productName}\" har ett giltigt namn`, () => {\r",
+							"        pm.expect(product.name).to.be.a(\"string\").that.is.not.empty;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(`Produkten \"${productName}\" har priset angivet med \"kr\"`, () => {\r",
+							"        pm.expect(product.price).to.include(\"kr\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/c/dryck",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"c",
+						"dryck"
 					]
 				}
 			},
